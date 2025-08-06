@@ -7,7 +7,9 @@ app = Flask(__name__)
 @app.route('/analyze', methods=['POST'])
 def analyze():
     data = request.get_json()
+    print("data = ", data)
     message = data.get('message', '')
+    token = data.get('token', '') 
     if not message:
         return jsonify({'error': 'No message provided'}), 400
 
@@ -22,7 +24,7 @@ def analyze():
     else:
         sentiment = "neutral"
 
-    return jsonify({'sentiment': sentiment, 'polarity': polarity})
+    return jsonify({'sentiment': sentiment, 'polarity': polarity, 'token': token})
 
 @app.route('/')
 def home():
